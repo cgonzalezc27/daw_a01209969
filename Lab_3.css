@@ -1,0 +1,30 @@
+*   {
+    color: darkslategray;
+    font-family: sans-serif;
+}
+h1 {
+    color:darkblue;
+    text-align: center;
+    font-family: fantasy
+}
+h2  {
+    text-decoration: underline;
+    font-size: 125%;
+}
+p,ul{
+    text-align: justify;
+    font-size: 90%;
+}
+h5  {
+    font-size: 100%;
+}
+ul  {
+    list-style-type:square;
+}
+.biblio {
+    list-style: disc;
+    text-align: left;
+}
+a   {
+    color: blue;
+}
