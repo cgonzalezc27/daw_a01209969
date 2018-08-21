@@ -69,5 +69,26 @@
         document.getElementById("respuesta3").innerHTML = "Negativos: " + negativo + "<br>" + "Positivos: " + positivo + "<br>" + "Ceros: " + cero;
     };
     </script>
+    <h2>Cuarto ejercicio</h2>
+    <button onclick="arreglo1.forEach(promedio)">Iniciar</button>
+    <p id="respuesta4"></p>
+    <script>
+       var arreglo1 = [[0,1,2],[7,8,9],[13,14,15]];
+
+        
+    </script>
+    <h2>Quinto ejercicio</h2>
+    <button onclick="inverso()">Iniciar</button>
+    <p id="respuesta5"></p>
+    <script>
+    function inverso() {
+        var y = prompt ("Inserte numero")
+        var x = y.toString()
+        var z = y.split("")
+        var a = z.reverse()
+        var b = a.join()
+        document.getElementById("respuesta5").innerHTML = b.replace(/,/g,"")
+    }
+    </script>
 </body>
 </html>
