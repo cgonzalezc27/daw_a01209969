@@ -113,7 +113,7 @@
     function seis() {
         var accion_a = {
             Ticker: "BIMBOA",
-            Precios: [12,12.03,12.1,12.25,12.4,12.3,12.41,12.5],
+            Precios: [12.1,12.25,12.2,12.4,12.7,12.6],
             Rendimientos: function rend() {
                 var rendimientos = [];
                 rendimientos [0]="N/A"
@@ -125,7 +125,7 @@
             },
             Promedio: function prom () {
                var promedio1 = 0;
-                for(j = 1; j < accion_a.Rendimientos().length - 1; j++){
+                for(j = 1; j < accion_a.Rendimientos().length; j++){
                    promedio1 = promedio1 + accion_a.Rendimientos()[j];
                } 
             
@@ -135,16 +135,59 @@
             },
             Desviacion: function desv () {
             var sum = 0;
-            for(h = 1; h < accion_a.Rendimientos().length - 1; h++){
+            for(h = 1; h < accion_a.Rendimientos().length; h++){
                    sum = sum + Math.pow(accion_a.Rendimientos()[h] - this.Promedio(),2);
                } 
-            var a = sum / ((accion_a.Rendimientos().length - 1) - 1);
-            var desvi = Number(a.toFixed(4));
+            var a = sum / ((accion_a.Rendimientos().length) - 2);
+            var desvi = Number(a.toFixed(6));
             return desvi;
         }
         };
         document.getElementById("respuesta6").innerHTML = "La accion " + accion_a.Ticker + " con precios diarios de " + accion_a.Precios + " tiene rendimientos de " + accion_a.Rendimientos() + " lo que lleva a un rendimiento promedio diario de " + accion_a.Promedio() + " con una desviacion estandar diaria de " + accion_a.Desviacion();
     }
     </script>
+    <h2>Preguntas conceptuales</h2>
+    <h3>¿Qué diferencias y semejanzas hay entre Java y JavaScript?</h3>
+    <p>Diferencias</p>
+    <ul>
+        <li>JavaScript no sirve para crear aplicaciones que se sostienen por sí mismas, mientras que Java sí (corren en máquinas virtuales).</li>
+        <li>JavaScript es comúnmente utilizado dentro de un HTML y le da interactividad al documento, diferente a Java cuya función no es para esto.</li>
+        <li>Los Plug-ins requeridos por cada uno de los lenguajes para su ejecución son diferentes.</li>
+        <li>La forma de compilación y de ejecución de los códigos es diferente, lo que hace que el debugging sea diferente en cada caso.</li>
+    </ul>
+    <p>Similitudes</p>
+    <ul>
+        <li>Tanto Java como JavaScript son lenguajes de programación.</li>
+        <li>Ambos lenguajes pueden ser ejecutados en exploradores. Sin embargo, las aplicaciones de Java han ido perdiendo popularidad por este medio.</li>
+        <li>Los dos lenguajes usan bibliotecas y frameworks que permiten reusar código.</li>
+    </ul>
+    <p>[1][2]</p>
+    <h3>¿Qué métodos tiene el objeto Date? (Menciona al menos 5*)</h3>
+    <ul>
+        <li>setTime()</li>
+        <li>parse()</li>
+        <li>getTimezoneOffset()</li>
+        <li>getUTCDate()</li>
+        <li>toDateString()</li>
+    </ul>
+    <p>[3]</p>
+    <h3>¿Qué métodos tienen los arreglos? (Menciona al menos 5*)</h3>
+    <ul>
+        <li>toString()</li>
+        <li>join()</li>
+        <li>push() y pop()</li>
+        <li>shift() y unshift()</li>
+        <li>splice()</li>
+        <li>space()</li>
+    </ul>
+    <p>[4]</p>
+    <h3>¿Cómo se declara una variable con alcance local dentro de una función?</h3>
+    <p>La variable se declara como normalmente se declararía una variable, solo que esta se crea dentro de la función, lo que hace que solo esté disponible dentro de ésta misma.</p>
+    <h3>¿Qué implicaciones tiene utilizar variables globales dentro de funciones?</h3>
+    <p>Las implicaciones, a lo mejor, podrían incluir que el desarrollador vuelva a utilizar variables globales que había declarado anteriormente, cambiando su valor a sin que él se de cuenta, lo que puede conducir a un error.</p>
+    <h3>¿Qué método de String se puede utilizar para buscar patrones con expresiones regulares?¿Para qué podrías utilizar esto en una aplicación web?</h3>
+    <p>El método .match() sirve para buscar patrones de texto dentro de un string. Éste podría ser utilizados para realizar validaciones o autenticaciones. Por ejemplo, un correo debe tener un arroba en algún lugar y, posterior a esto (utilizando otros métodos) se esperaría un dominio y la leyenda .com o dependiendo del país o la entidad.</p>
+    <h2>Bibliografía</h2>
+    <p>[1]https://www.java.com/en/download/faq/java_javascript.xml <br> [2]https://www.electronicproducts.com/Programming/Software/Java_vs_JavaScript_differences_and_similarities.aspx <br> [3]https://www.w3schools.com/jsref/jsref_obj_date.asp <br>[4]https://www.w3schools.com/js/js_array_methods.asp</p>
 </body>
 </html>
