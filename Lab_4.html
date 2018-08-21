@@ -8,18 +8,23 @@
 </head>
 <body>
     <h2>Primer ejercicio</h2>
+    <button onclick="ejercicio1()">Inciar</button>
     <table id="tabla" style="width: 100%">
-        <tr>
-        <th>Numero</th>
-        <th>Cuadrado</th>
-        <th>cubo</th>
-        </tr>
     </table>
     <script>
+      function ejercicio1(){
         var x = prompt("ingrese numero");
+        var table = document.getElementById("tabla");
+        var head = table.createTHead();
+        var rowh = head.insertRow(0);
+        var head1 = rowh.insertCell(0);
+        var head2 = rowh.insertCell(1);
+        var head3 = rowh.insertCell(2);
+        head1.innerHTML = "Numero";
+        head2.innerHTML = "Cuadrado";
+        head3.innerHTML = "Cubo";
         var i = 1;
        while (i<=x){
-            var table = document.getElementById("tabla");
             var row = table.insertRow(i);
             var cell1 = row.insertCell(0);
             var cell2 = row.insertCell(1);
@@ -29,6 +34,7 @@
             cell3.innerHTML = i * i * i;
             i = i + 1 ;
         };
+      }
     </script>
     <h2>Segundo ejercicio</h2>
     <button onclick="a()">Iniciar</button>
