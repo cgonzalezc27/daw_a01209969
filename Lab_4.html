@@ -105,5 +105,46 @@
         document.getElementById("respuesta5").innerHTML = b.replace(/,/g,"")
     }
     </script>
+    <h2>Sexto ejercicio</h2>
+    <p>Para este ejercicio, se busca que para una accion de precios especificos, se calcule el rendimeinto promedio y la desviacion estandar:</p>
+    <button onclick="seis()">Iniciar</button>
+    <p id="respuesta6"></p>
+    <script>
+    function seis() {
+        var accion_a = {
+            Ticker: "BIMBOA",
+            Precios: [12,12.03,12.1,12.25,12.4,12.3,12.41,12.5],
+            Rendimientos: function rend() {
+                var rendimientos = [];
+                rendimientos [0]="N/A"
+                for(i = 1; i < this.Precios.length; i++){
+                    var a = this.Precios[i] / this.Precios[i - 1] - 1;
+                    rendimientos[i] = Number(a.toFixed(4));
+                }
+                return rendimientos;
+            },
+            Promedio: function prom () {
+               var promedio1 = 0;
+                for(j = 1; j < accion_a.Rendimientos().length - 1; j++){
+                   promedio1 = promedio1 + accion_a.Rendimientos()[j];
+               } 
+            
+            var b = promedio1 / (accion_a.Rendimientos().length - 1);
+            promedio1 = Number(b.toFixed(4));    
+            return promedio1;
+            },
+            Desviacion: function desv () {
+            var sum = 0;
+            for(h = 1; h < accion_a.Rendimientos().length - 1; h++){
+                   sum = sum + Math.pow(accion_a.Rendimientos()[h] - this.Promedio(),2);
+               } 
+            var a = sum / ((accion_a.Rendimientos().length - 1) - 1);
+            var desvi = Number(a.toFixed(4));
+            return desvi;
+        }
+        };
+        document.getElementById("respuesta6").innerHTML = "La accion " + accion_a.Ticker + " con precios diarios de " + accion_a.Precios + " tiene rendimientos de " + accion_a.Rendimientos() + " lo que lleva a un rendimiento promedio diario de " + accion_a.Promedio() + " con una desviacion estandar diaria de " + accion_a.Desviacion();
+    }
+    </script>
 </body>
 </html>
