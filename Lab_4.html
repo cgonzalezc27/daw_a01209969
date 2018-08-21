@@ -51,13 +51,23 @@
     };
     </script>
     <h2>Tercer ejercicio</h2>
-    <button onclick="contador(arreglo)">Iniciar</button>
+    <button onclick="arreglo.forEach(contador)">Iniciar</button>
     <p id="respuesta3"></p>
     <script>
-    var arreglo = [1,2,3,4,-5,0,0]
-    function contador(arreglo){
-        document.getElementById("respuesta3").innerHTML = arreglo.length
-    }
+    var arreglo = [1,2,3,4,-5,0,0];
+    var negativo = 0;
+    var cero = 0;
+    var positivo = 0;
+    function contador(x){
+        if (x<0) {
+            negativo = negativo + 1;
+        } else if (x == 0) {
+            cero = cero + 1;
+        } else {
+            positivo = positivo + 1;
+        };
+        document.getElementById("respuesta3").innerHTML = "Negativos: " + negativo + "<br>" + "Positivos: " + positivo + "<br>" + "Ceros: " + cero;
+    };
     </script>
 </body>
 </html>
