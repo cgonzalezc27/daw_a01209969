@@ -70,11 +70,26 @@
     };
     </script>
     <h2>Cuarto ejercicio</h2>
-    <button onclick="arreglo1.forEach(promedio)">Iniciar</button>
+    <button onclick="promedio()">Iniciar</button>
     <p id="respuesta4"></p>
     <script>
-       var arreglo1 = [[0,1,2],[7,8,9],[13,14,15]];
-
+       var arreglo1 = [[0,1,3],[1,2,3,4,5]];
+        var b = 0;
+      
+        var resultado = [];
+        function promedio() {
+            for (r = 0; r < arreglo1.length; r++) {
+                debugger;
+                var g = 0;
+                var arreglo2 = arreglo1[r];
+                for(c = 0; c < arreglo2.length; c++) {
+                    g = g + arreglo2[c];
+                }
+               resultado[r] =  g / c;
+            }
+            document.getElementById("respuesta4").innerHTML = resultado
+        }
+        
         
     </script>
     <h2>Quinto ejercicio</h2>
