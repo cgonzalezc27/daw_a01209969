@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<title> Camilo González A01209969 </title>
+<head> 
+    <link rel="stylesheet" type="text/css" href="Lab_3.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="utf-8">    
+</head>
+<body>
+    <h2>Primer ejercicio</h2>
+    <table id="tabla" style="width: 100%">
+        <tr>
+        <th>Numero</th>
+        <th>Cuadrado</th>
+        <th>cubo</th>
+        </tr>
+    </table>
+    <script>
+        var x = prompt("ingrese numero");
+        var i = 1;
+       while (i<=x){
+            var table = document.getElementById("tabla");
+            var row = table.insertRow(i);
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+            var cell3 = row.insertCell(2);
+            cell1.innerHTML = i;
+            cell2.innerHTML = i * i;
+            cell3.innerHTML = i * i * i;
+            i = i + 1 ;
+        };
+    </script>
+    <h2>Segundo ejercicio</h2>
+    <button onclick="a()">Iniciar</button>
+    <p id="respuesta"></p>
+    <script>
+
+    function a(){
+        var y = Math.round(Math.random()*101);
+        var z = Math.round(Math.random()*101);
+        var inicio = Date.now();
+        var x = prompt ("Cuanto es "+y+ " + "+z+ "?");
+        var fin = Date.now();
+        var tiempo = Math.round((fin - inicio) / 1000)
+        var respuesta = z + y;
+        if (x == respuesta){
+            document.getElementById("respuesta").innerHTML = "La respuesta es correcta! Te demoraste "+tiempo+" segundos.";
+        } else {
+            document.getElementById("respuesta").innerHTML = "La respuesta es incorrecta :( Te demoraste "+tiempo+" segundos.";
+        } 
+    };
+    </script>
+    <h2>Tercer ejercicio</h2>
+    <button onclick="contador(arreglo)">Iniciar</button>
+    <p id="respuesta3"></p>
+    <script>
+    var arreglo = [1,2,3,4,-5,0,0]
+    function contador(arreglo){
+        document.getElementById("respuesta3").innerHTML = arreglo.length
+    }
+    </script>
+</body>
+</html>

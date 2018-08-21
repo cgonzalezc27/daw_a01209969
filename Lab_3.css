@@ -35,6 +35,9 @@ a   {
     background-color: white;
     padding-top: 60px;
 }
+td {
+    text-align: center;
+}
 /*
 LAS RESPUESTAS TAMBIÉN ESTÁN EN EL HTML LAB_1.html
 
