@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<title> Camilo González A01209969 </title>
+<head> 
+    <link rel="stylesheet" type="text/css" href="Lab_5.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="utf-8">    
+</head>
+    <body>
+        <article>
+            <h2>Validador de password</h2>
+            <p>Favor de ingresar su contraseña:</p>
+            <input type="password" id="pass1">
+            <p>Ingrésela nuevamente para verificarlo:</p>
+            <input type="password" id="pass2">
+            <br><input type="checkbox" id="check"> <p class="linea">Mostrar contraseñas</p>
+            <p id="mensaje"></p>
+            <button id="submit1">Enviar</button>
+       </article>
+
+        <article>
+        <h2>Tienda en línea</h2>
+        <p>A continuación se presentan los productos que tenemos disponibles en línea. Por favor elija la cantidad deseada por cada producto y presione comprar:</p>
+        <table>
+            <tr>
+                <th>Nombre de artículo</th>
+                <th>Imagen</th>
+                <th>Precio</th>
+                <th>Cantidad</th>
+                <th>Total</th>
+            </tr>
+            <tr>
+            <td>Zapato RL verde</td>
+            <td class="imagen"><img src="zapato1.png" alt="Zapato 1"></td>
+                <td><input type = text class = "precio" id="precio1" value=1578.70 readonly><p class = "lineatabla"> MXN</p></td>
+            <td>
+                <button id="-1">-</button>
+                <input type="text" readonly id="cantidad1" class="cantidad" value=0>
+                <button id="+1">+</button>
+            </td>
+            <td><p id="resultado1">0.00 MXN</p></td>
+            </tr>
+            <tr>
+            <td>Zapato RL azul</td>
+            <td class="imagen"><img src="zapato2.png" alt="Zapato 2"></td>
+                <td><input type = text class = "precio" id="precio2" value=1355.85 readonly><p class = "lineatabla"> MXN</p></td>
+            <td>
+                <button id="-2">-</button>
+                <input type="text" readonly id="cantidad2" class="cantidad" value=0>
+                <button id="+2">+</button>
+            </td>
+            <td><p id="resultado2">0.00 MXN</p></td>
+            </tr>
+            <tr>
+            <td>Zapato RL gris</td>
+            <td class="imagen"><img src="zapato3.png" alt="Zapato 2"></td>
+                <td><input type = text class = "precio" id="precio3" value=1453.60 readonly><p class = "lineatabla"> MXN</p></td>
+            <td>
+                <button id="-3">-</button>
+                <input type="text" readonly id="cantidad3" class="cantidad" value=0>
+                <button id="+3">+</button>
+            </td>
+            <td><p id="resultado3">0.00 MXN</p></td>
+            </tr>
+            <tr>
+            <td class="tablasinborde"></td>
+            <td class="tablasinborde"></td>
+            <td class="tablasinborde"></td>
+            <td class="tablasinbordea">Subtotal</td>
+            <td><p id="subtotal">0.00 MXN</p></td>
+            </tr>
+            <tr>
+            <td class="tablasinborde"></td>
+            <td class="tablasinborde"></td>
+            <td class="tablasinborde"></td>
+            <td class="tablasinbordea">IVA</td>
+            <td><p id="iva">0.00 MXN</p></td>
+            </tr>
+            <tr>
+            <td class="tablasinborde"></td>
+            <td class="tablasinborde"></td>
+            <td class="tablasinborde"></td>
+            <td class="tablasinbordea">Total</td>
+            <td><p id="total">0.00 MXN</p></td>
+            </tr>
+        </table>
+        </article>
+    <script type = "text/javascript" src = "Lab_5.js"></script>
+    </body>
+
+</html>

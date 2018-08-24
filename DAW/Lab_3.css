@@ -28,6 +28,11 @@ ul  {
 a   {
     color: blue;
 }
+.linea{
+    text-align: justify;
+    font-size: 90%;
+    display: inline
+}
 .menu {
     position: fixed;
     top: 0;
