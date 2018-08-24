@@ -1,4 +1,4 @@
-//Primer ejercicio
+
 
 document.getElementById("submit1").onclick = validar;
 document.getElementById("check").onclick = mostrar;
@@ -103,7 +103,7 @@ function calcular() {
     resultado2 = Number(resultado2.replace(" MXN",""));
      var resultado3 = document.getElementById("resultado3").innerHTML
     resultado3 = Number(resultado3.replace(" MXN",""));
-    var subtotal = resultado1 + resultado2 + resultado3 + " MXN";
+    var subtotal = round(resultado1 + resultado2 + resultado3,2) + " MXN";
    document.getElementById("subtotal").innerHTML = subtotal;
     var iva = round(Number(subtotal.replace(" MXN",""))* 0.16,2) + " MXN";
     document.getElementById("iva").innerHTML = iva;
