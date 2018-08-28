@@ -85,7 +85,30 @@
             </tr>
         </table>
         </article>
+        <article>
+            <h2>Análisis de precios de acciones</h2>
+            <form>
+                <p>Favor de ingresar los datos correspondientes a una acción.</p>
+                Ticker de la acción <input name="Ticker" type="text" id="ticker">
+                <p> Ingrese los precios de la accion separados por una coma:</p>
+                <input name="precios" type="text" id="precios">
+                <br><br>
+                
+                <p id = "respuesta"></p>
+            </form>
+            <button id = "submit">Submit</button>   
+        </article>
     <script type = "text/javascript" src = "Lab_5.js"></script>
+    
+    <article>
+        <h2>Preguntas</h2>
+        <p>¿Por qué es una buena práctica usar JavaScript para checar que sean válidos los inputs de las formas antes de enviar los datos al servidor?</p>
+        <p>Es buena idea para evitar que se almacene información con errores en el servidor, pues podría traer consecuencias negativas tanto para el usuario como para el administrador.</p>
+        <p>¿Cómo puedes saltarte la seguridad de validaciones hechas con JavaScript?</p>
+        <p>Para lograr esto, el usuario puede sencillamente deshabilitar o "apagar" javascript para evitar que éste le genere obstrucciones al querer enviar un formulario</p>
+        <p>Si te puedes saltar la seguridad de las validaciones de JavaScript, entonces ¿por qué la primera pregunta dice que es una buena práctica?</p>
+        <p>La validación con Javascript permite que ésta se haga de manera ágil y que sea amigable. Sin embargo, por motivos de seguridad, pueden haber problemas.</p>
+    </article>
     </body>
 
 </html>
