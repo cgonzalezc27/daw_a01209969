@@ -1,0 +1,93 @@
+Ejercicio 2
+
+Revisa el contenido de la tabla materiales y determina si existe alguna inconsistencia en el contenido de la tabla. ¿Cuál es? ¿A qué se debe? 
+
+La inconsistencia seria que la llave primaria se esta pudiendo repetir, lo cual rompe con la regla de unicidad de las llaves primarias.
+
+
+Agrega nuevamente el registro a la tabla de materiales: 
+  INSERT INTO Materiales values(1000, 'xxx', 1000) 
+¿Qué ocurrió? 
+
+No me deja agregar el registro pues rompe con la regla de integridad.
+
+
+Verifica si la tabla de materiales tiene definido algún constraint (restricción): 
+  sp_helpconstraint materiales 
+¿Qué información muestra esta consulta? 
+
+Aparece la constraint con su nombre y dice el tipo (primary key) y cual es el campo que es la llave.
+
+
+Asegúrate de crear constraints análogos para definir las llaves primarias de las tablas proveedores, y proyectos. 
+¿Qué sentencias utilizaste para definir las llaves primarias? 
+
+ALTER TABLE Proveedores add constraint llaveProveedores PRIMARY KEY (RFC);
+ALTER TABLE Proyectos add constraint llaveProyectos PRIMARY KEY (Numero);
+
+
+Define el constraint correspondiente a la llave primaria para la tabla entregan, considerando que en este caso, la llave primaria está integrada por varias columnas. 
+¿Qué sentencias utilizaste para definir este constraint? 
+
+ALTER TABLE Entregan add constraint llaveEntregan PRIMARY KEY (Clave,RFC,Numero,Fecha);
+
+
+Ejercicio 3
+
+Intenta insertar en la tabla entregan el siguiente registro: 
+  INSERT INTO entregan values (0, 'xxx', 0, '1-jan-02', 0) ; 
+¿Qué particularidad observas en los valores para clave, rfc y numero? 
+
+Los valores son diferentes a los registros anteriores (integridad).
+
+¿Cómo responde el sistema a la inserción de este registro? 
+
+El sistema acepta la inserción del registro
+
+
+Intenta nuevamente la inserción del registro inconsistente. 
+¿Qué significa el mensaje que emite el sistema? 
+
+El mensaje explica que ha un conflicto, pues se está insertando un registro que no coincide con las llaves de referencia de las llaves foráneas.
+
+¿Qué significado tiene la sentencia anterior? 
+
+Lo que hace la sentencia es que establece la regla de integridad declarando cual es la llave foránea y a que atributo llave de que tabla hace referencia
+
+
+Revisa los constraints de cada tabla. Para visualizar los constraints que hemos creado, se utiliza la siguiente sentencia: 
+  sp_helpconstraint tableName 
+¿Qué significan las columnas de esas consultas?
+
+En el primer recuadro sale el nombre de la tabla.
+En el segundo, aparece una tabla donde sobrsalen las columnas con el tipo de constraint (si es primary key, si es foreign...), el nombre de la constraint, el campo al que la constante aplica (si es una constraint de llave foranea, debajo sale a la tabla que hace referencia).
+En el tercero, aparece informacion de a que llave foranea de que tabla hace referencia
+
+
+Ejercicio 4
+
+Efectúa la siguiente sentencia INSERT: 
+  INSERT INTO entregan values (1000, 'AAAA800101', 5000, GETDATE(), 0); 
+Lista el registro que acabas de crear. 
+¿Qué uso se le está dando a GETDATE()? 
+
+GETDATE () hace que se registre la fecha y hora actual.
+
+¿Tiene sentido el valor del campo de cantidad? 
+
+El valor de cantidad en el registro no tiene mucho sentido, pues fue cero.
+
+
+Intenta insertar un registro con cantidad igual o menor que 0. 
+¿Cómo responde el sistema? 
+
+Con un error: The INSERT statement conflicted with the CHECK constraint "cantidad". The conflict occurred in database "a1209969", table "a1209969.Entregan", column 'Cantidad'.
+
+¿Qué significa el mensaje? 
+
+El mensaje dice que hubo un conflicto, pues se esta violando la constraint de la cantidad.
+
+
+Concepto de integridad referencial:
+
+El concepto de integridad referencial quiere decir que la base de datos debe respetar las relaciones que existen entre las llaves de las diferentes tablas, lo que significa que en caso de que exista una llave foránea, esta debe tener solamente valores que sean iguales a los que se encuentra en la llave primaria a la que la foránea está asociada. En caso de que se intente ingresar un registro que rompa con esta regla, el gestor no lo va a permitir (a menos que se utilice un valor nulo para el atributo foráneo).
