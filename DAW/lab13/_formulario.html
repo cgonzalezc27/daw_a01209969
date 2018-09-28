@@ -84,7 +84,17 @@
                 </div>
             </form>
             <br>
+            <?php if (isset($_SESSION["imagen"])): ?>
+            <img src="<?=$_SESSION["imagen"]?>" alt="Imagen de la sesion">
+             <?php endif ?>
+            <br>
             <h4>Preguntas:</h4>
-            <h6>¿Por qué es una buena práctica separar el controlador de la vista?</h6>
-            <p>Al separar el controlador de la vista, el código se vuelve más mantenible. Además se logra que la lógica del sitio esté separada de la estrucutra. Hay casos en que se debe involucrar la lógica directamente en el html para cuestiones de despliegue. Sin embargo, debe ser mínimo.</p>
+            <h6>¿Por qué es importante hacer un session_unset() y luego un session_destroy()?</h6>
+            <p>Porque el primer comando permite que se eliminen todas las variables de la sesión y el segundo permite que se destruya la sesión.</p>
+            <h6>¿Cuál es la diferencia entre una variable de sesión y una cookie?</h6>
+            <p>La principal diferencia es que las variables de sesión son guardadas en el servidor mientras que las cookies guardan la información en el explorador del usuario.</p>
+            <h6>¿Qué técnicas se utilizan en sitios como facebook para que el usuario no sobreescriba sus fotos en el sistema de archivos cuando sube una foto con el mismo nombre?</h6>
+            <p>Este tipo de sitios les genera un id al archivo con el que se guarda. De esta manera no se sobrescribe.</p>
+            <h6>¿Qué es CSRF y cómo puede prevenirse?</h6>
+            <p>Es un tipo de ataque que hace que el usuario realice acciones que él no desea en la aplicación. Esto se hace convenciendo al usuario de seguir un patrón de acciones por mail o por chat que haga que el usuario haga cambios en su sesión que en realidad no son deseados.</p>
         </div>

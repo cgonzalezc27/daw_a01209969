@@ -39,7 +39,6 @@
             include("_header.html");    
             include("_login.html");
         }
-        echo var_dump($GLOBALS);
         include("_footer.html");
     
 ?>

@@ -1,6 +1,7 @@
 <?php
     require_once("biblio.php");
     
+     session_start();
     include("_header.html");
     
 
@@ -104,12 +105,15 @@
             $a = $sum / (count($rendimientos) - 2);
             $a = sqrt($a);
             $desvi = round($a,4);
-            
+            $elementosp = "";
             foreach($x as $d){
+                    
                     $elementosp = $elementosp.", ".$d;
             }
             $elementosp = substr($elementosp, 2);
+             $elementosr = "";
             foreach($rendimientos as $d){
+                   
                     $elementosr = $elementosr.", ".$d;
             }
             $elementosr = substr($elementosr, 4);
