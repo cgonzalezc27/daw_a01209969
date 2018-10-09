@@ -147,7 +147,7 @@ SELECT * FROM Materiales where Descripcion LIKE 'Si'
 No se tienen resultados porque no hay registros que se llamen 'Si"
 */
 
-SELECT (Apellido + ', ' + Nombre) as Nombre FROM Personas; 
+
 
 DECLARE @foo varchar(40); 
 DECLARE @bar varchar(40); 
@@ -156,4 +156,260 @@ SET @bar = ' ¿¿¿??? ';
 SET @foo += ' obtienes?'; 
 PRINT @foo + @bar; 
 
+/*
+¿Qué resultado obtienes de ejecutar el siguiente código? 
+
+¿Que resultado obtienes? ¿¿¿??? 
+
+¿Para qué sirve DECLARE? 
+
+Sirve para declarar variables.
+
+¿Cuál es la función de @foo? 
+
+Es una variable.
+
+¿Que realiza el operador SET? 
+
+Asigna un valor a la variable.	
+*/
+
 SELECT RFC FROM Entregan WHERE RFC LIKE '[A-D]%';
+
+/*
+AAAA800101   
+AAAA800101   
+AAAA800101   
+
+72 rows
+
+Esta mostrando todos los RFCs que empiecen por las letras de la A a la D.
+*/
+SELECT RFC FROM Entregan WHERE RFC LIKE '[^A]%'; 
+/*
+BBBB800101   
+BBBB800101   
+BBBB800101   
+
+114 rows
+
+Esta mostrando todos los RFCs que no empiezan por A.
+*/
+
+SELECT Numero FROM Entregan WHERE Numero LIKE '___6'; 
+/*
+5016
+5016
+5006
+
+14 rows
+
+Esta mostrando los numeros de 4 posiciones que su ultima posicion sea 6.
+*/
+
+SELECT Clave,RFC,Numero,Fecha,Cantidad 
+FROM Entregan 
+WHERE Numero Between 5000 and 5010; 
+
+/*
+1000	AAAA800101   	5000	1998-07-08 00:00:00.000	165.00
+1010	BBBB800101   	5001	2000-05-03 00:00:00.000	528.00
+1020	CCCC800101   	5002	2001-07-29 00:00:00.000	582.00
+
+60 rows
+*/
+
+-- ¿Cómo filtrarías rangos de fechas?
+
+set dateformat dmy
+SELECT Clave,RFC,Numero,Fecha,Cantidad 
+FROM Entregan 
+WHERE Fecha Between '01/01/00' and '31/12/00';
+
+/*
+1000	AAAA800101   	5019	2000-04-06 00:00:00.000	7.00
+1010	BBBB800101   	5001	2000-05-03 00:00:00.000	528.00
+1010	BBBB800101   	5018	2000-11-10 00:00:00.000	667.00
+
+28 rows
+*/
+
+SELECT RFC,Cantidad, Fecha,Numero 
+FROM [Entregan] 
+WHERE [Numero] Between 5000 and 5010 AND 
+Exists ( SELECT [RFC] 
+FROM [Proveedores] 
+WHERE RazonSocial LIKE 'La%' and [Entregan].[RFC] = [Proveedores].[RFC] ); 
+
+/*
+AAAA800101   	165.00	1998-07-08 00:00:00.000	5000
+CCCC800101   	582.00	2001-07-29 00:00:00.000	5002
+AAAA800101   	86.00	1999-01-12 00:00:00.000	5008
+
+16 rows
+
+¿Qué hace la consulta? 
+
+Muestra el RFC, cantidad, fecha y numero de las entregas cuyo numero de proyecto este entre 5000 y 5010
+y cuyos proveedores tengan una razon social que empiece por 'La'.
+
+¿Qué función tiene el paréntesis ( ) después de EXISTS? 
+
+Limita el espacio en que se encuentra la subconsulta
+*/
+
+SELECT RFC,Cantidad, Fecha,Numero 
+FROM [Entregan] 
+WHERE [Numero] Between 5000 and 5010 AND 
+[RFC] IN ( SELECT [RFC] 
+FROM [Proveedores] 
+WHERE RazonSocial LIKE 'La%' and [Entregan].[RFC] = [Proveedores].[RFC] ); 
+
+/*
+AAAA800101   	165.00	1998-07-08 00:00:00.000	5000
+CCCC800101   	582.00	2001-07-29 00:00:00.000	5002
+AAAA800101   	86.00	1999-01-12 00:00:00.000	5008
+
+16 rows
+*/
+SELECT RFC,Cantidad, Fecha,Numero 
+FROM [Entregan] 
+WHERE [Numero] Between 5000 and 5010 AND 
+[RFC] NOT IN ( SELECT [RFC] 
+FROM [Proveedores] 
+WHERE RazonSocial NOT LIKE 'La%' and [Entregan].[RFC] = [Proveedores].[RFC] );
+
+/*
+AAAA800101   	165.00	1998-07-08 00:00:00.000	5000
+CCCC800101   	582.00	2001-07-29 00:00:00.000	5002
+AAAA800101   	86.00	1999-01-12 00:00:00.000	5008
+
+16 rows
+*/
+
+SELECT RFC,Cantidad, Fecha,Numero
+FROM Entregan
+WHERE 2 = ALL (SELECT Cantidad FROM Entregan);
+
+/*
+0 rows
+*/
+
+SELECT RFC,Cantidad, Fecha,Numero
+FROM Entregan
+WHERE 2 = ALL (SELECT Cantidad FROM Entregan WHERE Cantidad = 2);
+
+/*
+AAAA800101   	165.00	1998-07-08 00:00:00.000	5000
+AAAA800101   	254.00	1999-08-08 00:00:00.000	5019
+AAAA800101   	7.00	2000-04-06 00:00:00.000	5019
+
+rows 132
+*/
+
+SELECT TOP 2 * FROM Proyectos;
+
+/*
+5000	Vamos Mexico
+5001	Aztecón
+
+2 rows
+
+Muestra los 2 proyectos con el numero menor, pues esta ordenado de menor a mayor.
+*/
+
+SELECT TOP Numero FROM Proyectos;
+
+-- Arroja un error pues el gestor espera un valor y no una columna.
+
+ALTER TABLE materiales ADD PorcentajeImpuesto NUMERIC(6,2); 
+
+UPDATE materiales SET PorcentajeImpuesto = 2*clave/1000; 
+
+SELECT * FROM Materiales;
+
+
+Create view VMateriales (Clave, Descripcion, Costo, Porcentajeimpuesto) as SELECT * FROM Materiales;
+
+SELECT * FROM VMateriales;
+
+Create view VEntregan (Clave, RFC, Numero, Fecha, Cantidad) as SELECT * FROM Entregan;
+
+SELECT * FROM VEntregan;
+
+Create view VProveedores (RFC, RazonSocial) as SELECT * FROM Proveedores;
+
+SELECT * FROM VProveedores;
+
+Create view VProyectos (Numero, Denominacion) as SELECT * FROM Proyectos;
+
+SELECT * FROM VProyectos;
+
+Create view Vista1 as SELECT TOP 2 * FROM Proyectos;
+
+SELECT * FROM Vista1;
+
+Create view Vista2 as SELECT RFC,Cantidad, Fecha,Numero
+FROM Entregan
+WHERE 2 = ALL (SELECT Cantidad FROM Entregan WHERE Cantidad = 2);
+
+SELECT * FROM Vista2;
+
+Create view Vista3 as SELECT RFC,Cantidad, Fecha,Numero 
+FROM [Entregan] 
+WHERE [Numero] Between 5000 and 5010 AND 
+[RFC] NOT IN ( SELECT [RFC] 
+FROM [Proveedores] 
+WHERE RazonSocial NOT LIKE 'La%' and [Entregan].[RFC] = [Proveedores].[RFC] );
+
+SELECT * FROM Vista3;
+
+Create view Vista4 as SELECT Clave,RFC,Numero,Fecha,Cantidad 
+FROM Entregan 
+WHERE Numero Between 5000 and 5010;
+
+SELECT * FROM Vista4;
+
+Create view Vista5 as SELECT Numero FROM Entregan WHERE Numero LIKE '___6'; 
+
+SELECT * FROM Vista5;
+
+--  Los materiales (clave y descripción) entregados al proyecto "México sin ti no estamos completos"
+
+SELECT M.Clave, M.Descripcion
+FROM Materiales M, Entregan E, Proyectos P
+WHERE M.Clave = E.Clave AND E.Numero = P.Numero AND P.Denominacion = 'Mexico sin ti no estamos completos';
+
+/*
+1030	Varilla 4/33
+1230	Cemento 
+1430	Pintura B1022
+
+rows 3
+*/
+
+-- Los materiales (clave y descripción) que han sido proporcionados por el proveedor "Acme tools". 
+
+SELECT M.Clave, M.Descripcion
+FROM Materiales M, Entregan E, Proveedores P
+WHERE M.Clave = E.Clave AND E.RFC = P.RFC AND P.RazonSocial = 'Acme tools';
+
+/*
+rows 0
+
+El proveedor no existe
+*/
+
+--  El RFC de los proveedores que durante el 2000 entregaron en promedio cuando menos 300 materiales.
+set dateformat dmy
+SELECT P.RFC, AVG(E.Cantidad) AS CantidadPromedio
+FROM Proveedores P, Entregan E
+WHERE P.RFC = E.RFC AND E.Fecha > '31/12/99' AND E.Fecha < '01/01/01'
+GROUP BY P.RFC
+HAVING AVG(E.Cantidad) < 300
+
+/*
+AAAA800101   	237.000000
+
+rows 1
+*/
