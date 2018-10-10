@@ -406,10 +406,104 @@ SELECT P.RFC, AVG(E.Cantidad) AS CantidadPromedio
 FROM Proveedores P, Entregan E
 WHERE P.RFC = E.RFC AND E.Fecha > '31/12/99' AND E.Fecha < '01/01/01'
 GROUP BY P.RFC
-HAVING AVG(E.Cantidad) < 300
+HAVING AVG(E.Cantidad) < 300;
 
 /*
 AAAA800101   	237.000000
 
 rows 1
 */
+
+-- El Total entregado por cada material en el año 2000.
+set dateformat dmy
+SELECT Descripcion, SUM(Cantidad) as CantidadTotal
+FROM Materiales M, Entregan E
+WHERE M.Clave = E.CLave AND E.Fecha > '31/12/99' AND E.Fecha < '01/01/01'
+GROUP BY M.Descripcion;
+
+/*
+Arena	366.00
+Block	466.00
+Cantera rosa	162.00
+
+rows 22
+*/
+
+--  La Clave del material más vendido durante el 2001. (se recomienda usar una vista intermedia para su solución)
+
+SELECT TOP 1 E.Clave,  SUM(Cantidad) as CantidadTotal
+FROM Materiales M, Entregan E
+WHERE M.Clave = E.CLave AND E.Fecha > '31/12/00' AND E.Fecha < '01/01/02'
+GROUP BY E.Clave
+ORDER BY SUM(Cantidad) DESC;
+
+/*
+1020	1060.00
+
+rows 1
+*/
+
+--  Productos que contienen el patrón 'ub' en su nombre.
+SELECT Descripcion
+FROM Materiales
+WHERE Descripcion LIKE '%ub%'; 
+
+/*
+Recubrimiento P1001
+Recubrimiento P1010
+Recubrimiento P1019
+
+rows 12
+*/
+
+-- Denominación y suma del total a pagar para todos los proyectos.
+
+CREATE VIEW Entregas_total2 AS 
+(SELECT E.Clave, E.RFC, E.Numero, E.Fecha, E.Cantidad, M.Descripcion, M.Costo, M.PorcentajeImpuesto, (M.Costo*E.Cantidad)*(1+M.PorcentajeImpuesto/100) as TOTAL 
+FROM Entregan E, Materiales M 
+WHERE M.Clave = E.Clave)
+
+SELECT Descripcion, SUM(TOTAL) as GranTotal
+FROM Entregas_total2
+GROUP BY Descripcion
+
+/*
+Arena	218692.3200000000
+Block	51754.0800000000
+Cantera amarilla	176536.5000000000
+
+rows 42
+*/
+
+--  Denominación, RFC y RazonSocial de los proveedores que se suministran materiales al 
+-- proyecto Televisa en acción que no se encuentran apoyando al proyecto Educando en 
+-- Coahuila (Solo usando vistas). 
+
+CREATE VIEW DenoRFCRazon AS
+SELECT PR.Denominacion, P.RFC, P.RazonSocial
+FROM Proveedores P, Proyectos PR, Entregan E
+WHERE P.RFC = E.RFC AND PR.Numero = E.Numero;
+
+
+CREATE VIEW [Televisa] AS
+SELECT *
+FROM DenoRFCRazon
+WHERE Denominacion = 'Televisa en acción';
+
+
+CREATE VIEW [Coahuila] AS
+SELECT *
+FROM DenoRFCRazon
+WHERE Denominacion = 'Educando en Coahuila';
+
+-- Denominación, RFC y RazonSocial de los proveedores que se 
+-- suministran materiales al proyecto Televisa en acción que 
+-- no se encuentran apoyando al proyecto Educando en Coahuila 
+-- (Sin usar vistas, utiliza not in, in o exists). 
+
+-- Costo de los materiales y los Materiales que son entregados
+-- al proyecto Televisa en acción cuyos proveedores también
+-- suministran materiales al proyecto Educando en Coahuila.
+
+-- Nombre del material, cantidad de veces entregados y total 
+-- del costo de dichas entregas por material de todos los proyectos. 
