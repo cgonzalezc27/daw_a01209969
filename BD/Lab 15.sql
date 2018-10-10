@@ -480,30 +480,77 @@ rows 42
 -- Coahuila (Solo usando vistas). 
 
 CREATE VIEW DenoRFCRazon AS
-SELECT PR.Denominacion, P.RFC, P.RazonSocial
+
+(SELECT PR.Denominacion, P.RFC, P.RazonSocial
 FROM Proveedores P, Proyectos PR, Entregan E
-WHERE P.RFC = E.RFC AND PR.Numero = E.Numero;
+WHERE P.RFC = E.RFC AND PR.Numero = E.Numero AND 
+Denominacion != 'Educando en Coahuila' AND Denominacion = 'Televisa en acción');
 
+SELECT * FROM DenoRFCRazon
 
-CREATE VIEW [Televisa] AS
-SELECT *
-FROM DenoRFCRazon
-WHERE Denominacion = 'Televisa en acción';
+/*
+Televisa en acción	AAAA800101   	La fragua
+Televisa en acción	DDDD800101   	Cecoferre
+Televisa en acción	DDDD800101   	Cecoferre
 
-
-CREATE VIEW [Coahuila] AS
-SELECT *
-FROM DenoRFCRazon
-WHERE Denominacion = 'Educando en Coahuila';
+rows 8
+*/
 
 -- Denominación, RFC y RazonSocial de los proveedores que se 
 -- suministran materiales al proyecto Televisa en acción que 
 -- no se encuentran apoyando al proyecto Educando en Coahuila 
 -- (Sin usar vistas, utiliza not in, in o exists). 
 
+SELECT PR.Denominacion, P.RFC, P.RazonSocial
+FROM Proveedores P, Proyectos PR, Entregan E
+WHERE P.RFC = E.RFC AND PR.Numero = E.Numero AND Denominacion
+NOT IN 
+(SELECT  PR.Denominacion
+FROM Proveedores P, Proyectos PR, Entregan E
+WHERE P.RFC = E.RFC AND PR.Numero = E.Numero AND PR.Denominacion = 'Educando en Coahuila') AND Denominacion
+IN
+(SELECT  PR.Denominacion
+FROM Proveedores P, Proyectos PR, Entregan E
+WHERE P.RFC = E.RFC AND PR.Numero = E.Numero AND PR.Denominacion = 'Televisa en acción');
+
+/*
+Televisa en acción	CCCC800101   	La Ferre
+Televisa en acción	CCCC800101   	La Ferre
+Televisa en acción	AAAA800101   	La fragua
+
+rows 8
+*/
+
 -- Costo de los materiales y los Materiales que son entregados
 -- al proyecto Televisa en acción cuyos proveedores también
 -- suministran materiales al proyecto Educando en Coahuila.
 
+SELECT M.Descripcion, M.Costo, PR.Denominacion, P.RFC
+FROM Materiales M, Entregan E, Proyectos PR, Proveedores P
+WHERE M.Clave = E.Clave AND E.Numero = PR.Numero AND P.RFC = E.RFC AND 
+PR.Denominacion = 'Televisa en acción' AND P.RFC IN 
+(SELECT P.RFC FROM Materiales M, Entregan E, Proyectos PR, Proveedores P
+WHERE M.Clave = E.Clave AND E.Numero = PR.Numero AND P.RFC = E.RFC AND PR.Denominacion = 'Educando en Coahuila')
+
+/*
+Ladrillos rojos	50.00	Televisa en acción	AAAA800101   
+Tepetate	34.00	Televisa en acción	EEEE800101   
+
+rows 2
+*/
+
 -- Nombre del material, cantidad de veces entregados y total 
 -- del costo de dichas entregas por material de todos los proyectos. 
+
+SELECT M.Descripcion, COUNT(M.Clave) as NumeroEntregas, SUM(TOTAL) as GranTOTAL
+FROM Materiales M, Entregas_total2 E
+WHERE M.Clave = E.Clave
+GROUP BY M.Descripcion
+
+/*
+Arena	3	218692.3200000000
+Block	3	51754.0800000000
+Cantera amarilla	3	176536.5000000000
+
+rows 42
+*/
