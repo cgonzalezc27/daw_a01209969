@@ -1,0 +1,119 @@
+<div class="container">
+    <div class="container"><div class="display-4-1">Sistema para el registro de Zombis PETZ</div><br> </div>
+    <form method="POST" action="formulario_controller.php">
+        <div>Crear Zombi:</div>
+        <small class="form-text required">*Campos Obligatorios</small>
+        <br>
+        <div class="border cuadro border-info">
+            <div class="textocuadro">Datos del Zombi</div>
+            <div class="row">
+                <div class="col-4 text-right">
+                    <label for="Nombre_completo">Nombre completo <span class="required">*</span></label>
+                    <input placeholder="Camilo" id="Nombre_completo" name="Nombre_completo" type="text"> 
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4 text-right">
+                    <label for="NombreE">Estado<span class="required">*</span></label>
+                   
+                        <?= $estados ?>
+
+                </div>
+            </div>
+        </div>
+        <br>
+            <div class="row">
+                <div class="col-1"></div>
+                <button type="submit" name="submit" class="btn btn-primary">Crear Zombi</button>
+            </div>
+    </form>
+    <br>
+    <br>
+    <form method="POST" action="formulario_controller.php">
+        <div>Actualizar estatus de zombi:</div>
+        <small class="form-text required">*Campos Obligatorios</small>
+        <br>
+        <div class="border cuadro border-info">
+            <div class="textocuadro">Cambio de estatus</div>
+            <div class="row">
+                <div class="col-4 text-right">
+                    <label for="Nombre_completoU">Nombre completo <span class="required">*</span></label>
+                    <?= $zombis ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4 text-right">
+                    <label for="NombreE">Estado<span class="required">*</span></label>
+                   
+                    <?= $estados ?>
+
+                </div>
+            </div>
+        </div>
+        <br>
+            <div class="row">
+                <div class="col-1"></div>
+                <button type="submit" name="submit" class="btn btn-primary">Cambiar estatus</button>
+            </div>
+    </form>
+    <br>
+    <br>
+    <h5>Consulta 1</h5>
+    <table class = "table">
+        <tr>
+        <th>Criterio</th>
+        <th># Zombis</th>
+        </tr>
+        <tr>
+            <td>Total Zombis registrados</td>
+            <td> <?= $total_zombis ?></td>
+        </tr>
+        <tr>
+            <td>Total Zombis no muertos</td>
+            <td><?= $total_zombis_no_muerto ?></td>
+        </tr>
+    </table>
+    <br>
+    <table class = "table">
+        <tr>
+        <th>Estado</th>
+        <th># Zombis</th>
+        </tr>
+        <?= $zombisxestado ?>
+    </table>
+    <br>
+    <br>
+    <h5>Consulta 2</h5>
+    <table class = "table">
+        <tr>
+            <th>Zombis registrados ordenados por fecha</th>
+        </tr>
+        <?= $registro ?>
+    </table>
+    <br>
+    <br>
+    <form method="POST" action="formulario_controller.php">
+    <h5>Consulta 3</h5>
+    <div class="row">
+        <div class="col-4 text-right">
+            <label for="NombreEC">Estado<span class="required">*</span></label>
+            <?= $estadosc ?>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-1"></div>
+        <button type="submit" name="submit" class="btn btn-primary">Consultar</button>
+    </div>
+    </form>
+    <br>
+    <?php if(isset($total_zombis_por_estado)) :?>
+        Hay un total de <?= $total_zombis_por_estado ?> zombis bajo este estado.
+    <?php endif ?>
+    <br>
+    <?php if(isset($tabla)) :?>
+        <?= $tabla ?>
+    <?php endif ?>
+</div>
+        
+        
